@@ -21,31 +21,35 @@
     "electron",
     "cross-platform"
   ],
-  "author": "CF DNS Generator Team",
+  "author": {
+    "name": "Christian Hedberg",
+    "email": "christian.hedberg@hotmail.com"
+  },
   "license": "MIT",
-  "homepage": "https://github.com/yourusername/cloudflare-dns-generator",
+  "homepage": "https://github.com/Element-01303/cloudflare-dns-generator",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/cloudflare-dns-generator.git"
+    "url": "https://github.com/Element-01303/cloudflare-dns-generator.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/cloudflare-dns-generator/issues"
+    "url": "https://github.com/Element-01303/cloudflare-dns-generator/issues"
   },
   "devDependencies": {
+    "@electron/rebuild": "^3.4.0",
     "electron": "^28.0.0",
     "electron-builder": "^24.9.1",
-    "@electron/rebuild": "^3.4.0"
+    "sharp": "^0.34.5"
   },
   "dependencies": {
-    "electron-store": "^8.1.0",
-    "axios": "^1.6.0"
+    "axios": "^1.6.0",
+    "electron-store": "^8.1.0"
   },
   "build": {
     "appId": "com.cfdnsgenerator.app",
     "productName": "Cloudflare DNS Generator",
     "directories": {
       "output": "dist",
-      "resources": "resources"
+      "buildResources": "assets"
     },
     "files": [
       "src/**/*",
@@ -66,7 +70,7 @@
       ]
     },
     "win": {
-      "icon": "assets/icons/icon.ico",
+      "icon": "assets/icons/icon.png",
       "target": [
         {
           "target": "nsis",
