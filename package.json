@@ -1,0 +1,102 @@
+{
+  "name": "cloudflare-dns-generator",
+  "version": "1.0.0",
+  "description": "Cross-platform application to generate Cloudflare DNS update scripts for multiple DNS records",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux",
+    "dist": "electron-builder --publish=never",
+    "pack": "electron-builder --dir",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "keywords": [
+    "cloudflare",
+    "dns",
+    "updater",
+    "electron",
+    "cross-platform"
+  ],
+  "author": "CF DNS Generator Team",
+  "license": "MIT",
+  "homepage": "https://github.com/yourusername/cloudflare-dns-generator",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/cloudflare-dns-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/cloudflare-dns-generator/issues"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
+    "@electron/rebuild": "^3.4.0"
+  },
+  "dependencies": {
+    "electron-store": "^8.1.0",
+    "axios": "^1.6.0"
+  },
+  "build": {
+    "appId": "com.cfdnsgenerator.app",
+    "productName": "Cloudflare DNS Generator",
+    "directories": {
+      "output": "dist",
+      "resources": "resources"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "node_modules/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "icon": "assets/icons/icon.icns",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ]
+    },
+    "win": {
+      "icon": "assets/icons/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "icon": "assets/icons/icon.png",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
