@@ -305,3 +305,103 @@ The application is now fully functional and ready for:
 3. **Modern UI/UX** - Professional interface with accessibility features
 4. **Comprehensive Documentation** - User guide and development docs complete
 5. **Cross-platform Ready** - Architecture supports all target platforms
+
+---
+
+## Post-MVP Updates - January 29, 2026
+
+### Raspberry Pi OS Compatibility Fix ✅
+
+**Issue**: Generated bash scripts failed with syntax errors on Raspberry Pi OS (Debian-based)
+
+**Root Causes Identified**:
+1. Unicode characters (✓, ✗, →) not rendering properly in some terminals
+2. `which` command not universally available on minimal Debian systems
+3. Complex quote escaping in jq expressions causing parsing errors
+4. `local` keyword not supported in all POSIX shells
+
+**Solution Implemented**:
+- Replaced Unicode symbols with ASCII equivalents (`[OK]`, `[FAIL]`, `[SKIP]`)
+- Changed `which` to `command -v` for POSIX compliance
+- Simplified jq expressions with proper single-quote escaping
+- Removed `local` keyword in favor of underscore-prefixed variables (`_name`, `_id`)
+- Added proper line continuation with backslashes for readability
+
+**Testing**: Scripts now execute successfully on Raspberry Pi OS
+
+---
+
+### macOS Window Repositioning Fix ✅
+
+**Issue**: Application window could not be dragged/repositioned on macOS
+
+**Root Cause**: `titleBarStyle: 'hiddenInset'` removed the standard title bar draggable area
+
+**Solution**: Changed to `titleBarStyle: 'default'` for all platforms
+
+**Result**: Window now has standard title bar and can be moved normally on all platforms
+
+---
+
+### Subdomain Auto-FQDN Generation ✅
+
+**Issue**: Users had to enter full FQDN for each DNS record, which was error-prone
+
+**Solution Implemented**:
+1. Changed input field from "Record Name" to "Subdomain"
+2. Added visual domain suffix display (e.g., `.example.com`)
+3. Auto-generate FQDN by combining subdomain + domain
+4. Support `@` for root domain records
+
+**UI Changes**:
+- New `.subdomain-input-wrapper` CSS component
+- Visual domain suffix appended to input field
+- Updated placeholder text: "subdomain or @ for root"
+
+**Code Changes**:
+- `record.subdomain` property added to state
+- Auto-FQDN generation in input event handler
+- Backward compatibility for existing full names
+
+**User Experience**:
+- Enter `www` → generates `www.example.com`
+- Enter `vpn` → generates `vpn.example.com`  
+- Enter `@` → generates `example.com` (root domain)
+
+---
+
+### Updated Project Structure:
+```
+cloudflare-dns-generator/
+├── src/
+│   ├── main.js         ✅ Main Electron process (window repositioning fixed)
+│   ├── preload.js      ✅ Secure IPC bridge  
+│   ├── renderer.js     ✅ UI logic + Raspberry Pi compatible scripts + subdomain FQDN
+│   ├── index.html      ✅ Updated record input template
+│   └── styles.css      ✅ Subdomain input wrapper styling
+├── assets/             ✅ Icons and resources
+├── package.json        ✅ Dependencies and build config
+├── README.md          ✅ Updated documentation
+├── CONTRIBUTING.md    ✅ Contribution guidelines
+├── LICENSE            ✅ MIT License
+├── .gitignore         ✅ Git ignore rules
+└── DEV.md             ✅ Development log (this file)
+```
+
+### Git Commit History:
+1. `c7b251f` - Initial commit: Cross-platform Cloudflare DNS updater application
+2. `f2279b2` - Fix Raspberry Pi OS compatibility issues in bash script generation
+3. `2f6ba26` - Fix macOS window dragging and add subdomain auto-FQDN generation
+
+### Current Application Status: FULLY FUNCTIONAL ✅
+
+All core features working:
+- ✅ Cross-platform Electron application
+- ✅ Cloudflare API validation and zone management
+- ✅ Up to 20 DNS record management
+- ✅ Smart subdomain input with auto-FQDN
+- ✅ Multi-format script generation (Bash, Batch, PowerShell)
+- ✅ Raspberry Pi OS compatible bash scripts
+- ✅ Dark/light theme support
+- ✅ Standard window management on all platforms
+- ✅ Script preview and export functionality

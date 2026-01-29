@@ -5,12 +5,14 @@ A cross-platform desktop application for generating Cloudflare DNS update script
 ## Features
 
 - **Cross-Platform Support**: Runs on macOS, Linux, and Windows
+- **Raspberry Pi Compatible**: Generated scripts fully tested on Raspberry Pi OS
 - **Multiple DNS Records**: Generate scripts for up to 20 DNS records simultaneously
+- **Smart Subdomain Entry**: Enter just the subdomain - FQDN is auto-generated
 - **User-Friendly Interface**: Modern, intuitive UI with dark mode support
 - **Standard Interface Functions**: Full support for copy, paste, cut operations
 - **Script Preview**: Review generated scripts before saving
 - **Multiple Export Formats**: Save scripts in various formats (.sh, .bat, .ps1)
-- **Visual Customization**: Resizable windows, theme options
+- **Visual Customization**: Resizable, repositionable windows with theme options
 - **Secure**: API tokens are handled securely and not stored permanently
 
 ## Screenshots
@@ -20,7 +22,7 @@ A cross-platform desktop application for generating Cloudflare DNS update script
 ## Installation
 
 ### From Releases (Recommended)
-1. Go to the [Releases](https://github.com/yourusername/cloudflare-dns-generator/releases) page
+1. Go to the [Releases](https://github.com/Element-01303/cloudflare-dns-generator/releases) page
 2. Download the appropriate installer for your operating system:
    - **macOS**: `.dmg` file
    - **Windows**: `.exe` installer
@@ -30,7 +32,7 @@ A cross-platform desktop application for generating Cloudflare DNS update script
 ### From Source
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/cloudflare-dns-generator.git
+   git clone https://github.com/Element-01303/cloudflare-dns-generator.git
    cd cloudflare-dns-generator
    ```
 
@@ -49,13 +51,16 @@ A cross-platform desktop application for generating Cloudflare DNS update script
 ### Basic Setup
 1. **Launch the Application**: Open Cloudflare DNS Generator
 2. **Enter API Token**: Input your Cloudflare API token (created from Cloudflare dashboard)
-3. **Specify Domain**: Enter the domain you want to manage
-4. **Add DNS Records**: Add up to 20 DNS records you want to update
+3. **Specify Domain**: Enter the domain you want to manage (e.g., `example.com`)
+4. **Validate Configuration**: Click "Validate" to verify your credentials
+5. **Add DNS Records**: Add up to 20 DNS records you want to update
 
 ### Adding DNS Records
 1. Click the "Add Record" button
 2. Enter the record details:
-   - **Record Name**: Full domain name (e.g., `vpn.example.com`)
+   - **Subdomain**: Just the subdomain part (e.g., `www`, `vpn`, `mail`)
+     - Use `@` for the root domain
+     - The full FQDN is automatically generated (e.g., `www.example.com`)
    - **Record Type**: A, AAAA, CNAME, etc.
    - **Proxied**: Whether the record should be proxied through Cloudflare
 3. Repeat for additional records (max 20)
@@ -64,7 +69,7 @@ A cross-platform desktop application for generating Cloudflare DNS update script
 1. Click "Generate Script" after adding all desired records
 2. Review the generated script in the preview window
 3. Choose your preferred format:
-   - **Bash Script** (.sh) - For macOS/Linux
+   - **Bash Script** (.sh) - For macOS/Linux/Raspberry Pi
    - **Batch File** (.bat) - For Windows
    - **PowerShell** (.ps1) - For Windows PowerShell
 4. Click "Save Script" to export to your desired location
@@ -72,15 +77,18 @@ A cross-platform desktop application for generating Cloudflare DNS update script
 ### Setting Up Automated Updates
 After saving your script:
 
-#### macOS/Linux:
+#### macOS/Linux/Raspberry Pi:
 ```bash
 # Make the script executable
 chmod +x your-dns-script.sh
 
+# Test the script first
+./your-dns-script.sh
+
 # Set up a cron job to run every 5 minutes
 crontab -e
 # Add this line:
-*/5 * * * * /path/to/your-dns-script.sh
+*/5 * * * * /path/to/your-dns-script.sh >> /var/log/dns-update.log 2>&1
 ```
 
 #### Windows:
@@ -129,10 +137,15 @@ To use this application, you need a Cloudflare API token:
 - Ensure all DNS record fields are properly filled
 - Check that record names are valid domain names
 
+**Script Errors on Raspberry Pi/Linux**
+- Ensure `curl` and `jq` are installed: `sudo apt-get install curl jq`
+- Make the script executable: `chmod +x script.sh`
+- Run with bash explicitly if needed: `bash script.sh`
+
 ### Getting Help
 
 - Check our [FAQ](docs/FAQ.md)
-- Report bugs on our [Issues](https://github.com/yourusername/cloudflare-dns-generator/issues) page
+- Report bugs on our [Issues](https://github.com/Element-01303/cloudflare-dns-generator/issues) page
 - Join our community discussions
 
 ## Contributing
