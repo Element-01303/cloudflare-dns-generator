@@ -285,10 +285,18 @@ function generateBashScript() {
   script += 'CLOUDFLARE_API_TOKEN="' + appState.apiToken + '"\n';
   script += 'ZONE_ID="' + appState.zoneId + '"\n\n';
   
-  // Use simple command detection
+  // Use portable command detection
   script += '# Set command paths\n';
-  script += 'CURL=$(which curl)\n';
-  script += 'JQ=$(which jq)\n\n';
+  script += 'CURL=""\n';
+  script += 'JQ=""\n\n';
+  
+  script += 'if command -v curl > /dev/null 2>&1; then\n';
+  script += '    CURL="curl"\n';
+  script += 'fi\n\n';
+  
+  script += 'if command -v jq > /dev/null 2>&1; then\n';
+  script += '    JQ="jq"\n';
+  script += 'fi\n\n';
   
   script += '# Check dependencies\n';
   script += 'if [ -z "$CURL" ]; then\n';
@@ -312,33 +320,39 @@ function generateBashScript() {
   script += 'echo "Current IP: $IP"\n';
   script += 'echo "Starting DNS updates..."\n\n';
   
-  // Simple DNS functions
+  // Simple DNS functions without local keyword for maximum compatibility
   script += '# Function to get DNS record ID\n';
   script += 'get_dns_record_id() {\n';
-  script += '    local name="$1"\n';
-  script += '    $CURL -s -X GET "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?name=$name" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" | $JQ -r ".result[0].id // null"\n';
+  script += '    _name="$1"\n';
+  script += '    $CURL -s -X GET "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?name=$_name" \\\n';
+  script += '        -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \\\n';
+  script += '        -H "Content-Type: application/json" | $JQ -r \'.result[0].id // "null"\'\n';
   script += '}\n\n';
   
   script += '# Function to get current DNS record IP\n';
   script += 'get_current_ip() {\n';
-  script += '    local id="$1"\n';
-  script += '    $CURL -s -X GET "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$id" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" | $JQ -r ".result.content // empty"\n';
+  script += '    _id="$1"\n';
+  script += '    $CURL -s -X GET "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$_id" \\\n';
+  script += '        -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \\\n';
+  script += '        -H "Content-Type: application/json" | $JQ -r \'.result.content // ""\'\n';
   script += '}\n\n';
   
   script += '# Function to update DNS record\n';
   script += 'update_dns_record() {\n';
-  script += '    local id="$1"\n';
-  script += '    local name="$2"\n';
-  script += '    local type="$3"\n';
-  script += '    local proxied="$4"\n';
-  script += '    local response\n';
-  script += '    response=$($CURL -s -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$id" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" --data "{\\"type\\":\\"$type\\",\\"name\\":\\"$name\\",\\"content\\":\\"$IP\\",\\"ttl\\":1,\\"proxied\\":$proxied}")\n';
-  script += '    success=$(echo "$response" | $JQ -r ".success // false")\n';
-  script += '    if [ "$success" = "true" ]; then\n';
-  script += '        echo "✓ Updated $name to $IP"\n';
+  script += '    _id="$1"\n';
+  script += '    _name="$2"\n';
+  script += '    _type="$3"\n';
+  script += '    _proxied="$4"\n';
+  script += '    _response=$($CURL -s -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$_id" \\\n';
+  script += '        -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \\\n';
+  script += '        -H "Content-Type: application/json" \\\n';
+  script += '        --data "{\\"type\\":\\"$_type\\",\\"name\\":\\"$_name\\",\\"content\\":\\"$IP\\",\\"ttl\\":1,\\"proxied\\":$_proxied}")\n';
+  script += '    _success=$(echo "$_response" | $JQ -r \'.success // false\')\n';
+  script += '    if [ "$_success" = "true" ]; then\n';
+  script += '        echo "[OK] Updated $_name to $IP"\n';
   script += '    else\n';
-  script += '        error=$(echo "$response" | $JQ -r ".errors[0].message // \\"Unknown error\\"")\n';
-  script += '        echo "✗ Failed to update $name: $error"\n';
+  script += '        _error=$(echo "$_response" | $JQ -r \'.errors[0].message // "Unknown error"\')\n';
+  script += '        echo "[FAIL] Failed to update $_name: $_error"\n';
   script += '    fi\n';
   script += '}\n\n';
   
@@ -358,10 +372,10 @@ function generateBashScript() {
     script += '    if [ "$IP" != "$CURRENT_IP_' + recordNum + '" ]; then\n';
     script += '        update_dns_record "$RECORD_ID_' + recordNum + '" "' + recordName + '" "' + recordType + '" ' + proxied + '\n';
     script += '    else\n';
-    script += '        echo "→ ' + record.name + ' already has IP $IP"\n';
+    script += '        echo "[SKIP] ' + record.name + ' already has IP $IP"\n';
     script += '    fi\n';
     script += 'else\n';
-    script += '    echo "✗ DNS record not found: ' + record.name + '"\n';
+    script += '    echo "[FAIL] DNS record not found: ' + record.name + '"\n';
     script += 'fi\n\n';
   });
   
