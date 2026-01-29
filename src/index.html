@@ -102,8 +102,11 @@
             </div>
             <div class="record-fields">
                 <div class="field-group">
-                    <label>Record Name:</label>
-                    <input type="text" class="record-name" placeholder="subdomain.example.com" required>
+                    <label>Subdomain:</label>
+                    <div class="subdomain-input-wrapper">
+                        <input type="text" class="record-subdomain" placeholder="subdomain or @ for root" required>
+                        <span class="domain-suffix"></span>
+                    </div>
                 </div>
                 <div class="field-group">
                     <label>Type:</label>

@@ -204,19 +204,45 @@ function createRecordElement(record, index) {
   recordElement.querySelector('.record-number').textContent = `Record ${index}`;
   
   // Get form elements
-  const nameInput = recordElement.querySelector('.record-name');
+  const subdomainInput = recordElement.querySelector('.record-subdomain');
+  const domainSuffix = recordElement.querySelector('.domain-suffix');
   const typeSelect = recordElement.querySelector('.record-type');
   const proxiedCheckbox = recordElement.querySelector('.record-proxied');
   const removeButton = recordElement.querySelector('.remove-record');
   
+  // Set domain suffix display
+  domainSuffix.textContent = '.' + appState.domain;
+  
+  // Extract subdomain from existing record name if present
+  let subdomain = record.subdomain || '';
+  if (record.name && !record.subdomain) {
+    // If we have a full name but no subdomain, extract it
+    if (record.name === appState.domain) {
+      subdomain = '@';
+    } else if (record.name.endsWith('.' + appState.domain)) {
+      subdomain = record.name.replace('.' + appState.domain, '');
+    } else {
+      subdomain = record.name;
+    }
+    record.subdomain = subdomain;
+  }
+  
   // Set current values
-  nameInput.value = record.name;
+  subdomainInput.value = subdomain;
   typeSelect.value = record.type;
   proxiedCheckbox.checked = record.proxied;
   
   // Bind event listeners
-  nameInput.addEventListener('input', (e) => {
-    record.name = e.target.value;
+  subdomainInput.addEventListener('input', (e) => {
+    const subdomainValue = e.target.value.trim();
+    record.subdomain = subdomainValue;
+    
+    // Auto-generate FQDN
+    if (subdomainValue === '@' || subdomainValue === '') {
+      record.name = appState.domain;
+    } else {
+      record.name = subdomainValue + '.' + appState.domain;
+    }
     updateGenerateButton();
   });
   

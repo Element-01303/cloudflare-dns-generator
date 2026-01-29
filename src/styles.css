@@ -343,6 +343,41 @@ select:focus {
   align-items: end;
 }
 
+.subdomain-input-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.subdomain-input-wrapper input.record-subdomain {
+  border: none;
+  border-radius: 0;
+  flex: 1;
+  min-width: 80px;
+}
+
+.subdomain-input-wrapper input.record-subdomain:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.subdomain-input-wrapper:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.domain-suffix {
+  padding: 0.5rem 0.75rem;
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  white-space: nowrap;
+  border-left: 1px solid var(--border-color);
+}
+
 .field-group label {
   margin-bottom: 0.25rem;
   font-size: 0.875rem;
