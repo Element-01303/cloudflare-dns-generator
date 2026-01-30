@@ -62,6 +62,7 @@ build/
 .Trashes
 ehthumbs.db
 Thumbs.db
+RELEASE_NOTES 2.md
 
 # Temporary files
 tmp/
