@@ -231,7 +231,7 @@ cloudflare-dns-generator/
 - [ ] Cross-platform testing (macOS, Windows, Linux)
 - [ ] Comprehensive error handling validation
 - [ ] Performance optimization and memory usage analysis
-- [ ] Security audit and penetration testing
+- [x] Security audit and penetration testing
 - [ ] User acceptance testing with real Cloudflare accounts
 
 #### Phase 8: Build and Distribution 📦 PENDING PHASE 7
@@ -263,8 +263,10 @@ npm run build:linux   # Linux only
 ```
 
 #### Dependencies Installed:
-- **electron**: ^28.0.0 - Main framework
-- **electron-builder**: ^24.9.1 - Build system
+- **electron**: ^40.1.0 - Main framework
+- **electron-builder**: ^26.6.0 - Build system
+- **@electron/rebuild**: ^4.0.3 - Native module rebuild tooling
+- **sharp**: ^0.34.5 - Icon generation pipeline
 - **axios**: ^1.6.0 - HTTP client for API calls
 - **electron-store**: ^8.1.0 - Settings persistence
 
@@ -370,6 +372,32 @@ The application is now fully functional and ready for:
 
 ---
 
+### Security Review & Breaking Dependency Upgrades (v1.0.1) ✅
+
+**Objective**: Address audit findings and harden the app without changing user workflows.
+
+**Dependency Upgrades (Breaking)**:
+- Electron → ^40.1.0
+- electron-builder → ^26.6.0
+- @electron/rebuild → ^4.0.3
+
+**Security Enhancements**:
+- **Renderer sandboxing** and stricter `webPreferences`
+- **CSP** added to block unexpected resource loads
+- **IPC input validation** for save and API validation operations
+- **External navigation protection** (block in-app navigation to external URLs)
+- **Safe dialog handling** and tighter file write permissions for scripts
+
+**Build Verification (Post-Upgrade)**:
+- macOS DMG (x64 + arm64)
+- Windows NSIS installer (x64 + ia32)
+- Linux AppImage + .deb
+
+**Notes**:
+- macOS signing is disabled for dev builds unless a valid signing identity is provided.
+
+---
+
 ### Updated Project Structure:
 ```
 cloudflare-dns-generator/
@@ -392,6 +420,9 @@ cloudflare-dns-generator/
 1. `c7b251f` - Initial commit: Cross-platform Cloudflare DNS updater application
 2. `f2279b2` - Fix Raspberry Pi OS compatibility issues in bash script generation
 3. `2f6ba26` - Fix macOS window dragging and add subdomain auto-FQDN generation
+4. `c155c87` - Update README.md and DEV.md with latest features and fixes
+5. `c967ae8` - Add icons, update author info, prepare v1.0.0 release
+6. `06490c4` - WIP: security review changes (dev-review branch)
 
 ### Current Application Status: FULLY FUNCTIONAL ✅
 
