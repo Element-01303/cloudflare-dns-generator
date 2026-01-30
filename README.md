@@ -14,6 +14,7 @@ A cross-platform desktop application for generating Cloudflare DNS update script
 - **Multiple Export Formats**: Save scripts in various formats (.sh, .bat, .ps1)
 - **Visual Customization**: Resizable, repositionable windows with theme options
 - **Secure**: API tokens are handled securely and not stored permanently
+- **Security Hardening**: CSP, renderer sandboxing, IPC validation, and external navigation protection
 
 ## Screenshots
 
@@ -120,6 +121,16 @@ To use this application, you need a Cloudflare API token:
 - **Operating System**: macOS 10.14+, Windows 10+, or Linux (Ubuntu 18.04+)
 - **Cloudflare Account**: With API access
 - **Internet Connection**: Required for API validation and script generation
+
+## Security
+
+This application follows Electron security best practices:
+
+- **Context Isolation + Sandbox**: The renderer runs without Node.js access.
+- **Strict CSP**: Only local resources and Cloudflare endpoints are allowed.
+- **IPC Validation**: Script-save and API validation inputs are validated in the main process.
+- **External Navigation Protection**: External links are opened in the system browser.
+- **No Token Storage**: API tokens are used in memory only.
 
 ## Troubleshooting
 

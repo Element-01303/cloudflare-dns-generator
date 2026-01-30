@@ -1,6 +1,9 @@
-const { app, BrowserWindow, Menu, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, dialog, shell } = require('electron');
 const path = require('path');
 const fs = require('fs').promises;
+const axios = require('axios');
+
+const isDev = !app.isPackaged;
 
 // Keep a global reference of the window object
 let mainWindow;
@@ -17,8 +20,12 @@ function createWindow() {
       nodeIntegration: false,
       contextIsolation: true,
       enableRemoteModule: false,
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      sandbox: true,
+      devTools: isDev
     },
+    safeDialogs: true,
+    safeDialogsMessage: 'Prevented the app from opening an unexpected dialog.',
     titleBarStyle: 'default',
     show: false // Don't show until ready
   });
@@ -84,10 +91,7 @@ function createMenu() {
     {
       label: 'View',
       submenu: [
-        { role: 'reload' },
-        { role: 'forceReload' },
-        { role: 'toggleDevTools' },
-        { type: 'separator' },
+        ...(isDev ? [{ role: 'reload' }, { role: 'forceReload' }, { role: 'toggleDevTools' }, { type: 'separator' }] : []),
         { role: 'resetZoom' },
         { role: 'zoomIn' },
         { role: 'zoomOut' },
@@ -126,7 +130,7 @@ function createMenu() {
         {
           label: 'Learn More',
           click: () => {
-            require('electron').shell.openExternal('https://github.com/yourusername/cloudflare-dns-generator');
+            shell.openExternal('https://github.com/Element-01303/cloudflare-dns-generator');
           }
         }
       ]
@@ -167,6 +171,11 @@ function createMenu() {
 // IPC handlers
 ipcMain.handle('save-script', async (event, scriptData) => {
   try {
+    const allowedExtensions = new Set(['sh', 'bat', 'ps1']);
+    if (!scriptData || typeof scriptData.content !== 'string' || !allowedExtensions.has(scriptData.extension)) {
+      return { success: false, error: 'Invalid script data' };
+    }
+
     const { canceled, filePath } = await dialog.showSaveDialog(mainWindow, {
       title: 'Save DNS Update Script',
       defaultPath: `dns-update-script.${scriptData.extension}`,
@@ -179,7 +188,7 @@ ipcMain.handle('save-script', async (event, scriptData) => {
     });
 
     if (!canceled && filePath) {
-      await fs.writeFile(filePath, scriptData.content);
+      await fs.writeFile(filePath, scriptData.content, { encoding: 'utf8', mode: 0o600 });
       return { success: true, path: filePath };
     }
     
@@ -192,10 +201,17 @@ ipcMain.handle('save-script', async (event, scriptData) => {
 
 ipcMain.handle('validate-cloudflare-api', async (event, { apiToken, domain }) => {
   try {
-    const axios = require('axios');
+    if (typeof apiToken !== 'string' || typeof domain !== 'string') {
+      return { success: false, error: 'Invalid input' };
+    }
+
+    const sanitizedDomain = domain.trim().toLowerCase();
+    if (!sanitizedDomain || sanitizedDomain.length > 255) {
+      return { success: false, error: 'Invalid domain' };
+    }
     
     // First, validate the API token by getting zones
-    const zonesResponse = await axios.get(`https://api.cloudflare.com/client/v4/zones?name=${domain}`, {
+    const zonesResponse = await axios.get(`https://api.cloudflare.com/client/v4/zones?name=${encodeURIComponent(sanitizedDomain)}`, {
       headers: {
         'Authorization': `Bearer ${apiToken}`,
         'Content-Type': 'application/json'
@@ -213,7 +229,7 @@ ipcMain.handle('validate-cloudflare-api', async (event, { apiToken, domain }) =>
     if (zones.length === 0) {
       return { 
         success: false, 
-        error: `Domain '${domain}' not found in your Cloudflare account` 
+        error: `Domain '${sanitizedDomain}' not found in your Cloudflare account` 
       };
     }
 
@@ -274,8 +290,16 @@ app.on('activate', () => {
 
 // Security: Prevent new window creation
 app.on('web-contents-created', (event, contents) => {
-  contents.on('new-window', (navigationEvent, url) => {
-    navigationEvent.preventDefault();
-    require('electron').shell.openExternal(url);
+  contents.setWindowOpenHandler(({ url }) => {
+    shell.openExternal(url);
+    return { action: 'deny' };
+  });
+
+  contents.on('will-navigate', (navigationEvent, url) => {
+    const isLocal = url.startsWith('file://');
+    if (!isLocal) {
+      navigationEvent.preventDefault();
+      shell.openExternal(url);
+    }
   });
 });
