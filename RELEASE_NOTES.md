@@ -1,3 +1,12 @@
+## 1.0.2 - Theme Expansion
+
+### Highlights
+- Added Catppuccin flavors: Latte, Frappé, Macchiato, Mocha
+- Theme toggle now cycles all flavors with official Catppuccin icons
+- Simplified UI by removing the dropdown and adding hover tooltip for the current theme
+
+---
+
 ## 🎉 Initial Release
 
 ### Features
@@ -9,11 +18,11 @@
 - **Raspberry Pi Compatible**: Scripts tested and working on Raspberry Pi OS
 
 ### Downloads
-- **macOS (Intel)**: `Cloudflare DNS Generator-1.0.0.dmg`
-- **macOS (Apple Silicon)**: `Cloudflare DNS Generator-1.0.0-arm64.dmg`
-- **Windows**: `Cloudflare DNS Generator Setup 1.0.0.exe`
-- **Linux (AppImage)**: `Cloudflare DNS Generator-1.0.0.AppImage`
-- **Linux (Debian/Ubuntu)**: `cloudflare-dns-generator_1.0.0_amd64.deb`
+- **macOS (Intel)**: `Cloudflare DNS Updater-1.0.0.dmg`
+- **macOS (Apple Silicon)**: `Cloudflare DNS Updater-1.0.0-arm64.dmg`
+- **Windows**: `Cloudflare DNS Updater Setup 1.0.0.exe`
+- **Linux (AppImage)**: `Cloudflare DNS Updater-1.0.0.AppImage`
+- **Linux (Debian/Ubuntu)**: `cloudflare-dns-updater_1.0.0_amd64.deb`
 
 ### Requirements
 - Cloudflare API token with Zone:DNS:Edit and Zone:Zone:Read permissions

@@ -1,7 +1,7 @@
 {
-  "name": "cloudflare-dns-generator",
-  "version": "1.0.1",
-  "description": "Cross-platform application to generate Cloudflare DNS update scripts for multiple DNS records",
+  "name": "cloudflare-dns-updater",
+  "version": "1.0.2",
+  "description": "Cross-platform application to update Cloudflare DNS records and generate DNS update scripts",
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
@@ -26,13 +26,13 @@
     "email": "christian.hedberg@hotmail.com"
   },
   "license": "MIT",
-  "homepage": "https://github.com/Element-01303/cloudflare-dns-generator",
+  "homepage": "https://github.com/LabratoryZero/cloudflare-dns-updater",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Element-01303/cloudflare-dns-generator.git"
+    "url": "https://github.com/LabratoryZero/cloudflare-dns-updater.git"
   },
   "bugs": {
-    "url": "https://github.com/Element-01303/cloudflare-dns-generator/issues"
+    "url": "https://github.com/LabratoryZero/cloudflare-dns-updater/issues"
   },
   "devDependencies": {
     "@electron/rebuild": "^4.0.3",
@@ -46,7 +46,7 @@
   },
   "build": {
     "appId": "com.cfdnsgenerator.app",
-    "productName": "Cloudflare DNS Generator",
+    "productName": "Cloudflare DNS Updater",
     "directories": {
       "output": "dist",
       "buildResources": "assets"

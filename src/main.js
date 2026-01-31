@@ -121,16 +121,16 @@ function createMenu() {
           click: () => {
             dialog.showMessageBox(mainWindow, {
               type: 'info',
-              title: 'About Cloudflare DNS Generator',
-              message: 'Cloudflare DNS Generator',
-              detail: 'Version 1.0.0\n\nA cross-platform application for generating Cloudflare DNS update scripts.\n\nBuilt with Electron.'
+              title: 'About Cloudflare DNS Updater',
+              message: 'Cloudflare DNS Updater',
+              detail: 'Version 1.0.2\n\nA cross-platform application for updating Cloudflare DNS records and generating DNS update scripts.\n\nBuilt with Electron.'
             });
           }
         },
         {
           label: 'Learn More',
           click: () => {
-            shell.openExternal('https://github.com/Element-01303/cloudflare-dns-generator');
+            shell.openExternal('https://github.com/LabratoryZero/cloudflare-dns-updater');
           }
         }
       ]

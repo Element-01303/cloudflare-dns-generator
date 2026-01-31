@@ -1,4 +1,4 @@
-# Cloudflare DNS Generator
+# Cloudflare DNS Updater
 
 A cross-platform desktop application for generating Cloudflare DNS update scripts. This application allows users to easily create automated DNS update scripts for multiple DNS records using their Cloudflare API token and domain information.
 
@@ -8,11 +8,11 @@ A cross-platform desktop application for generating Cloudflare DNS update script
 - **Raspberry Pi Compatible**: Generated scripts fully tested on Raspberry Pi OS
 - **Multiple DNS Records**: Generate scripts for up to 20 DNS records simultaneously
 - **Smart Subdomain Entry**: Enter just the subdomain - FQDN is auto-generated
-- **User-Friendly Interface**: Modern, intuitive UI with dark mode support
+- **User-Friendly Interface**: Modern, intuitive UI with Light/Dark and Catppuccin themes
 - **Standard Interface Functions**: Full support for copy, paste, cut operations
 - **Script Preview**: Review generated scripts before saving
 - **Multiple Export Formats**: Save scripts in various formats (.sh, .bat, .ps1)
-- **Visual Customization**: Resizable, repositionable windows with theme options
+- **Visual Customization**: Resizable, repositionable windows with theme cycling and flavor tooltips
 - **Secure**: API tokens are handled securely and not stored permanently
 - **Security Hardening**: CSP, renderer sandboxing, IPC validation, and external navigation protection
 
@@ -23,7 +23,7 @@ A cross-platform desktop application for generating Cloudflare DNS update script
 ## Installation
 
 ### From Releases (Recommended)
-1. Go to the [Releases](https://github.com/Element-01303/cloudflare-dns-generator/releases) page
+1. Go to the [Releases](https://github.com/LabratoryZero/cloudflare-dns-updater/releases) page
 2. Download the appropriate installer for your operating system:
    - **macOS**: `.dmg` file
    - **Windows**: `.exe` installer
@@ -33,8 +33,8 @@ A cross-platform desktop application for generating Cloudflare DNS update script
 ### From Source
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Element-01303/cloudflare-dns-generator.git
-   cd cloudflare-dns-generator
+   git clone https://github.com/LabratoryZero/cloudflare-dns-updater.git
+   cd cloudflare-dns-updater
    ```
 
 2. Install dependencies:
@@ -50,7 +50,7 @@ A cross-platform desktop application for generating Cloudflare DNS update script
 ## Usage
 
 ### Basic Setup
-1. **Launch the Application**: Open Cloudflare DNS Generator
+1. **Launch the Application**: Open Cloudflare DNS Updater
 2. **Enter API Token**: Input your Cloudflare API token (created from Cloudflare dashboard)
 3. **Specify Domain**: Enter the domain you want to manage (e.g., `example.com`)
 4. **Validate Configuration**: Click "Validate" to verify your credentials
@@ -156,7 +156,7 @@ This application follows Electron security best practices:
 ### Getting Help
 
 - Check our [FAQ](docs/FAQ.md)
-- Report bugs on our [Issues](https://github.com/Element-01303/cloudflare-dns-generator/issues) page
+- Report bugs on our [Issues](https://github.com/LabratoryZero/cloudflare-dns-updater/issues) page
 - Join our community discussions
 
 ## Contributing

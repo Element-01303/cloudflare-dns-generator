@@ -1,6 +1,6 @@
-# Contributing to Cloudflare DNS Generator
+# Contributing to Cloudflare DNS Updater
 
-Thank you for your interest in contributing to the Cloudflare DNS Generator! This document provides guidelines for contributing to this project.
+Thank you for your interest in contributing to the Cloudflare DNS Updater! This document provides guidelines for contributing to this project.
 
 ## Code of Conduct
 
@@ -34,8 +34,8 @@ Feature requests are welcome! Please:
 
 1. **Fork and clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/cloudflare-dns-generator.git
-   cd cloudflare-dns-generator
+   git clone https://github.com/LabratoryZero/cloudflare-dns-updater.git
+   cd cloudflare-dns-updater
    ```
 
 2. **Install dependencies**:
@@ -200,4 +200,4 @@ If you have questions about contributing:
 - Check existing issues and pull requests
 - Review the project documentation
 
-Thank you for contributing to make Cloudflare DNS Generator better for everyone!
+Thank you for contributing to make Cloudflare DNS Updater better for everyone!

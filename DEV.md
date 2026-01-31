@@ -1,6 +1,6 @@
 # Development Log
 
-This file tracks the development progress of the Cloudflare DNS Generator application.
+This file tracks the development progress of the Cloudflare DNS Updater application.
 
 ## Project Initialization - January 29, 2026
 
@@ -29,7 +29,7 @@ This file tracks the development progress of the Cloudflare DNS Generator applic
 
 #### Project Structure:
 ```
-cloudflare-dns-generator/
+cloudflare-dns-updater/
 ├── src/                    # Application source code
 │   ├── main.js            # Main Electron process
 │   ├── renderer.js        # Renderer process (UI logic)
@@ -61,7 +61,8 @@ cloudflare-dns-generator/
 
 #### Theme System:
 - Light and dark mode support
-- System theme detection
+- Catppuccin flavors: Latte, Frappé, Macchiato, Mocha
+- Theme cycling via icon toggle with hover tooltip
 - User preference persistence
 - Consistent color schemes across platforms
 
@@ -171,7 +172,7 @@ All core functionality has been successfully implemented:
 
 #### 📁 Project Structure Completed:
 ```
-cloudflare-dns-generator/
+cloudflare-dns-updater/
 ├── src/
 │   ├── main.js         ✅ Main Electron process
 │   ├── preload.js      ✅ Secure IPC bridge  
@@ -247,7 +248,7 @@ cloudflare-dns-generator/
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd cloudflare-dns-generator
+cd cloudflare-dns-updater
 
 # Install dependencies
 npm install
@@ -400,7 +401,7 @@ The application is now fully functional and ready for:
 
 ### Updated Project Structure:
 ```
-cloudflare-dns-generator/
+cloudflare-dns-updater/
 ├── src/
 │   ├── main.js         ✅ Main Electron process (window repositioning fixed)
 │   ├── preload.js      ✅ Secure IPC bridge  

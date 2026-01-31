@@ -1,5 +1,6 @@
 /* CSS Variables for theming */
-:root {
+:root,
+.light-theme {
   --bg-primary: #ffffff;
   --bg-secondary: #f8f9fa;
   --bg-tertiary: #e9ecef;
@@ -29,6 +30,74 @@
   --warning-color: #ffd43b;
   --shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
+}
+
+.catppuccin-latte-theme {
+  /* Catppuccin Latte palette */
+  --bg-primary: #eff1f5;
+  --bg-secondary: #e6e9ef;
+  --bg-tertiary: #dce0e8;
+  --text-primary: #4c4f69;
+  --text-secondary: #6c6f85;
+  --border-color: #ccd0da;
+  --accent-color: #1e66f5;
+  --accent-hover: #209fb5;
+  --success-color: #40a02b;
+  --error-color: #d20f39;
+  --warning-color: #df8e1d;
+  --shadow: 0 0.125rem 0.25rem rgba(76, 79, 105, 0.12);
+  --shadow-lg: 0 0.5rem 1rem rgba(76, 79, 105, 0.2);
+}
+
+.catppuccin-frappe-theme {
+  /* Catppuccin Frappé palette */
+  --bg-primary: #303446;
+  --bg-secondary: #292c3c;
+  --bg-tertiary: #232634;
+  --text-primary: #c6d0f5;
+  --text-secondary: #a5adce;
+  --border-color: #414559;
+  --accent-color: #8caaee;
+  --accent-hover: #81c8be;
+  --success-color: #a6d189;
+  --error-color: #e78284;
+  --warning-color: #e5c890;
+  --shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+}
+
+.catppuccin-macchiato-theme {
+  /* Catppuccin Macchiato palette */
+  --bg-primary: #24273a;
+  --bg-secondary: #1e2030;
+  --bg-tertiary: #181926;
+  --text-primary: #cad3f5;
+  --text-secondary: #a5adcb;
+  --border-color: #363a4f;
+  --accent-color: #8aadf4;
+  --accent-hover: #7dc4e4;
+  --success-color: #a6da95;
+  --error-color: #ed8796;
+  --warning-color: #eed49f;
+  --shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+}
+
+.catppuccin-mocha-theme {
+  /* Catppuccin Mocha palette */
+  --bg-primary: #1e1e2e;
+  --bg-secondary: #181825;
+  --bg-tertiary: #11111b;
+  --text-primary: #cdd6f4;
+  --text-secondary: #a6adc8;
+  --border-color: #313244;
+  --accent-color: #89b4fa;
+  --accent-hover: #74c7ec;
+  --success-color: #a6e3a1;
+  --error-color: #f38ba8;
+  --warning-color: #f9e2af;
+  --shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
 }
 
 /* Base styles */
@@ -75,6 +144,7 @@ body {
   display: flex;
   gap: 0.5rem;
 }
+
 
 .icon-button {
   background: none;
