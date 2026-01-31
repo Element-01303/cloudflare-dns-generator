@@ -130,7 +130,7 @@ function createMenu() {
         {
           label: 'Learn More',
           click: () => {
-            shell.openExternal('https://github.com/LabratoryZero/cloudflare-dns-updater');
+            shell.openExternal('https://github.com/LaboratoryZero/cloudflare-dns-updater');
           }
         }
       ]

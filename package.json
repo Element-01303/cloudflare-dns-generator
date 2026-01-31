@@ -26,13 +26,13 @@
     "email": "christian.hedberg@hotmail.com"
   },
   "license": "MIT",
-  "homepage": "https://github.com/LabratoryZero/cloudflare-dns-updater",
+  "homepage": "https://github.com/LaboratoryZero/cloudflare-dns-updater",
   "repository": {
     "type": "git",
-    "url": "https://github.com/LabratoryZero/cloudflare-dns-updater.git"
+    "url": "https://github.com/LaboratoryZero/cloudflare-dns-updater.git"
   },
   "bugs": {
-    "url": "https://github.com/LabratoryZero/cloudflare-dns-updater/issues"
+    "url": "https://github.com/LaboratoryZero/cloudflare-dns-updater/issues"
   },
   "devDependencies": {
     "@electron/rebuild": "^4.0.3",

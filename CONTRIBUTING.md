@@ -34,7 +34,7 @@ Feature requests are welcome! Please:
 
 1. **Fork and clone the repository**:
    ```bash
-   git clone https://github.com/LabratoryZero/cloudflare-dns-updater.git
+   git clone https://github.com/LaboratoryZero/cloudflare-dns-updater.git
    cd cloudflare-dns-updater
    ```
 

@@ -23,7 +23,7 @@ A cross-platform desktop application for generating Cloudflare DNS update script
 ## Installation
 
 ### From Releases (Recommended)
-1. Go to the [Releases](https://github.com/LabratoryZero/cloudflare-dns-updater/releases) page
+1. Go to the [Releases](https://github.com/LaboratoryZero/cloudflare-dns-updater/releases) page
 2. Download the appropriate installer for your operating system:
    - **macOS**: `.dmg` file
    - **Windows**: `.exe` installer
@@ -33,7 +33,7 @@ A cross-platform desktop application for generating Cloudflare DNS update script
 ### From Source
 1. Clone the repository:
    ```bash
-   git clone https://github.com/LabratoryZero/cloudflare-dns-updater.git
+   git clone https://github.com/LaboratoryZero/cloudflare-dns-updater.git
    cd cloudflare-dns-updater
    ```
 
@@ -156,7 +156,7 @@ This application follows Electron security best practices:
 ### Getting Help
 
 - Check our [FAQ](docs/FAQ.md)
-- Report bugs on our [Issues](https://github.com/LabratoryZero/cloudflare-dns-updater/issues) page
+- Report bugs on our [Issues](https://github.com/LaboratoryZero/cloudflare-dns-updater/issues) page
 - Join our community discussions
 
 ## Contributing
